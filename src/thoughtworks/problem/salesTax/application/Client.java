@@ -4,6 +4,7 @@
 
 package thoughtworks.problem.salesTax.application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,15 +27,12 @@ public class Client {
 		this.inputFilePath = inputFilePath;
 	}
 
-	public Receipt performTransaction() {
+	public Receipt performTransaction() throws InvalidInputException, NumberFormatException,
+			IOException {
 		// read and prepare input data
 		lookup = CategoryLookup.getInstance();
-		try {
-			inputData = new FileParser(inputFilePath).getInputData();
-		} catch (InvalidInputException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+
+		inputData = new FileParser(inputFilePath).getInputData();
 		productFactory = ProductFactory.getInstance();
 		shoppingCart = new CustomerCart("Customer A", "Cashier B", new Date().toString());
 
@@ -51,8 +49,6 @@ public class Client {
 		}
 
 		receipt = new Receipt(shoppingCart);
-		new Printer(receipt).print();
-
 		return receipt;
 	}
 

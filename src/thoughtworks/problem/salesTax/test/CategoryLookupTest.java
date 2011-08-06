@@ -10,7 +10,7 @@ import thoughtworks.problem.salesTax.constants.Constants;
 
 public class CategoryLookupTest extends TestCase {
 
-	CategoryLookup lookup;
+	private CategoryLookup lookup;
 
 	@Override
 	@Before

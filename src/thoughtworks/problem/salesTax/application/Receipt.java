@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import thoughtworks.problem.salesTax.constants.Constants;
 import thoughtworks.problem.salesTax.products.Product;
 import thoughtworks.problem.salesTax.shoppingCart.ShoppingCart;
 
@@ -12,36 +13,25 @@ public class Receipt {
 	private static class ReceiptItems {
 		private int quantity;
 		private String name;
-		private double cost;
-		private double salesTax;
+		private BigDecimal totalCost;
+		private BigDecimal salesTax;
 
-		public ReceiptItems(int quantity, String name, double cost, double salesTax) {
+		public ReceiptItems(int quantity, String name, double salesTax, double totalCost) {
 			this.quantity = quantity;
 			this.name = name;
-			this.cost = cost;
-			this.salesTax = salesTax;
+			this.salesTax = new BigDecimal(Double.toString(salesTax)).setScale(2,
+					BigDecimal.ROUND_HALF_EVEN);
+			this.totalCost = new BigDecimal(Double.toString(totalCost)).setScale(2,
+					BigDecimal.ROUND_HALF_EVEN);
 		}
 
-		public double getCost() {
-			return this.cost;
-		}
-
-		public String getName() {
-			return this.name;
-		}
-
-		public int getQuantity() {
-			return this.quantity;
-		}
-
-		public double getSalesTax() {
-			return this.salesTax;
-		}
 	}
 
 	private ArrayList<ReceiptItems> receiptItemsList;
-	private double salesTaxes;
-	private double total;
+	private double grandSalesTaxesTotal = 0;
+	private double grandBaseCostTotal = 0;
+	private double grandOverallTotal = 0;
+
 	private ShoppingCart cart;
 
 	public Receipt(ShoppingCart cart) {
@@ -50,56 +40,58 @@ public class Receipt {
 		generateReceipt();
 	}
 
+	public BigDecimal getTotal() {
+		BigDecimal total = new BigDecimal(Double.toString(grandOverallTotal)).setScale(
+				Constants.REQUIRED_DECIMAL_PLACES, BigDecimal.ROUND_HALF_EVEN);
+		return total;
+	}
+
+	public BigDecimal getSalesTax() {
+
+		BigDecimal salesTaxes = new BigDecimal(Double.toString(grandSalesTaxesTotal)).setScale(
+				Constants.REQUIRED_DECIMAL_PLACES, BigDecimal.ROUND_HALF_EVEN);
+		return salesTaxes;
+
+	}
+
 	private void generateReceipt() {
-		// Three things to do:
-		// 1. List quantity, product name and total base cost per product
 		Iterator<Product> cartIterator = cart.iterator();
+
 		while (cartIterator.hasNext()) {
 			Product product = cartIterator.next();
 			int quantity = product.getQuantity();
 			String name = product.getName();
-			double cost = product.getCost();
-			double salesTax = product.getSalesTax();
+			double totalBaseCostForThisProduct = product.getCost();
+			double totalSalesTaxForThisProduct = product.getSalesTax();
+			double totalCostForThisProduct = totalBaseCostForThisProduct
+					+ totalSalesTaxForThisProduct;
 
-			receiptItemsList.add(new ReceiptItems(quantity, name, cost, salesTax));
+			grandSalesTaxesTotal += totalSalesTaxForThisProduct;
+			grandBaseCostTotal += totalBaseCostForThisProduct;
+
+			receiptItemsList.add(new ReceiptItems(quantity, name, totalSalesTaxForThisProduct,
+					totalCostForThisProduct));
 		}
 
-		// 2. Calculate total sales tax
-		salesTaxes = getSalesTaxes();
-
-		// 3. Calculate grand total including sales tax
-		total = getTotal();
+		grandOverallTotal = grandBaseCostTotal + grandSalesTaxesTotal;
 	}
 
-	private double getSalesTaxes() {
-		double salesTaxes = 0;
-		Iterator<ReceiptItems> iterator = receiptItemsList.iterator();
-		while (iterator.hasNext()) {
-			salesTaxes += iterator.next().getSalesTax();
-		}
-		return salesTaxes;
-	}
-
-	private double getTotal() {
-		double total = 0;
-		Iterator<ReceiptItems> iterator = receiptItemsList.iterator();
-		while (iterator.hasNext()) {
-			total += iterator.next().getCost();
-		}
-		return (total + salesTaxes);
-	}
-
+	/**
+	 * Method used by any printer to print the receipt
+	 * */
 	public void print() {
-		// print the receipt and empty shopping cart
 		Iterator<ReceiptItems> iterator = receiptItemsList.iterator();
 		while (iterator.hasNext()) {
 			ReceiptItems item = iterator.next();
-			System.out.println(item.quantity + " " + item.name + " :" + item.cost);
+			System.out.println(item.quantity + " " + item.name + " :" + item.totalCost);
 		}
 
-		System.out.println("\nSales Taxes:\t" + salesTaxes);
+		System.out.println("\nSales Taxes:\t"
+				+ new BigDecimal(Double.toString(grandSalesTaxesTotal)).setScale(2,
+						BigDecimal.ROUND_HALF_EVEN));
 		System.out.println("Total:\t"
-				+ new BigDecimal(Double.toString(total)).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+				+ new BigDecimal(Double.toString(grandOverallTotal)).setScale(2,
+						BigDecimal.ROUND_HALF_EVEN));
 		cart.empty();
 	}
 }

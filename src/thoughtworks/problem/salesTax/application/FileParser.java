@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import thoughtworks.problem.salesTax.exceptions.InvalidInputException;
+
 public class FileParser {
 
 	private FileReader fileReader;
@@ -14,7 +16,7 @@ public class FileParser {
 	private String filePath;
 	private ArrayList<InputData> inputDataArray;
 
-	public FileParser(String filePath) {
+	public FileParser(String filePath) throws InvalidInputException {
 		this.filePath = filePath;
 		this.inputDataArray = new ArrayList<InputData>();
 		try {
@@ -40,8 +42,12 @@ public class FileParser {
 
 		} catch (FileNotFoundException notFoundException) {
 			notFoundException.printStackTrace();
+			System.exit(-1);
 		} catch (IOException ioException) {
 			ioException.printStackTrace();
+			System.exit(-1);
+		} catch (NumberFormatException noFormatException) {
+			throw new InvalidInputException();
 		}
 
 	}

@@ -8,11 +8,7 @@ public class Food extends Product {
 
 	public Food(String name, double cost, int quantity, boolean isImported) {
 		super(name, cost, quantity, isImported);
-	}
-
-	@Override
-	public double getSalesTax() {
-		return this.salesTaxPercent;
+		super.setSalesTaxPercent(this.salesTaxPercent);
 	}
 
 }

@@ -2,17 +2,17 @@ package thoughtworks.problem.salesTax.application;
 
 public class InputData {
 	private int quantity;
-	private String product;
+	private String productDescription;
 	private boolean isImported;
 	private double cost;
 
 	public InputData() {
 	}
 
-	public InputData(int quantity, String product, boolean isImported, double cost) {
+	public InputData(int quantity, String productDescription, boolean isImported, double cost) {
 		super();
 		this.quantity = quantity;
-		this.product = product;
+		this.productDescription = productDescription;
 		this.isImported = isImported;
 		this.cost = cost;
 	}
@@ -21,8 +21,8 @@ public class InputData {
 		return cost;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getProductDescription() {
+		return productDescription;
 	}
 
 	public int getQuantity() {
@@ -42,7 +42,7 @@ public class InputData {
 	}
 
 	public void setProduct(String product) {
-		this.product = product;
+		this.productDescription = product;
 	}
 
 	public void setQuantity(int quantity) {

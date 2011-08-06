@@ -8,11 +8,7 @@ public class Book extends Product {
 
 	public Book(String title, double cost, int quantity, boolean isImported) {
 		super(title, cost, quantity, isImported);
-	}
-
-	@Override
-	public double getSalesTax() {
-		return this.salesTaxPercent;
+		super.setSalesTaxPercent(this.salesTaxPercent);
 	}
 
 }

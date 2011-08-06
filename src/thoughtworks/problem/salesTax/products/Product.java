@@ -23,7 +23,7 @@ public abstract class Product {
 	}
 
 	public double getCost() {
-		return this.cost;
+		return this.cost * this.quantity;
 	}
 
 	public String getName() {
@@ -41,7 +41,7 @@ public abstract class Product {
 					* this.cost * this.quantity) / 100;
 
 		} else
-			totalSalesTaxForThisProduct = (this.salesTaxPercent * this.cost) / 100;
+			totalSalesTaxForThisProduct = (this.salesTaxPercent * this.cost * this.quantity) / 100;
 
 		return roundUpSalesTax(totalSalesTaxForThisProduct, Constants.NEAREST_N_CENTS);
 	}
@@ -54,13 +54,11 @@ public abstract class Product {
 		BigDecimal bigDecimalRepresentation = new BigDecimal(
 				Double.toString(totalSalesTaxForThisProduct));
 		double scaledNumber = bigDecimalRepresentation.setScale(Constants.REQUIRED_DECIMAL_PLACES,
-				BigDecimal.ROUND_HALF_EVEN).doubleValue() * 100;
+				BigDecimal.ROUND_HALF_UP).doubleValue() * 100;
 		double resolution = scaledNumber % Constants.NEAREST_N_CENTS;
 		if (resolution != 0) {
-			scaledNumber += (resolution <= 2) ? -resolution
-					: (Constants.NEAREST_N_CENTS - resolution);
+			scaledNumber += Constants.NEAREST_N_CENTS - resolution;
 		}
-
 		return scaledNumber / 100;
 	}
 

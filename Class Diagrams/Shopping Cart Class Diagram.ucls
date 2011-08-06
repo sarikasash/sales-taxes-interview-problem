@@ -1,0 +1,30 @@
+<class-diagram version="1.0.4" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="thoughtworks.problem.salesTax.shoppingCart.CustomerCart" 
+    project="SalesTaxModel" file="/SalesTaxModel/src/thoughtworks/problem/salesTax/shoppingCart/CustomerCart.java" 
+    binary="false">    
+    <position x="365" y="30" width="218" height="242"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" corner="BOTTOM_RIGHT" language="java" name="thoughtworks.problem.salesTax.shoppingCart.ShoppingCart" 
+    project="SalesTaxModel" file="/SalesTaxModel/src/thoughtworks/problem/salesTax/shoppingCart/ShoppingCart.java" 
+    binary="false">    
+    <position x="365" y="312" width="218" height="146"/>    
+    <display autosize="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <realization>    
+    <end type="SOURCE" nodeId="1"/>    
+    <end type="TARGET" nodeId="2"/>  
+  </realization>  
+  <classifier-display autosize="true" package="true" initial-value="true" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

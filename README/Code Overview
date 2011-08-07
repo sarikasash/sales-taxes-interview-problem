@@ -1,0 +1,43 @@
+--Project: SalesTaxModel--
+--Author: Swapnil Devikar--
+--Email: swapnil.devikar@gmail.com--
+-- Date: 08/06/2011 --
+
+Architectural overview:
+Please refer to the class diagrams in Class Diagrams folder for visual details. Class diagrams are generated using 
+an evaluation version of "ObjectAid" plugin for eclipse. However, a .jpeg image for each section is also present
+for ready referral.
+
+Description:
+ --package ~application:
+ Contains application level classes as follows: 
+1. Application.java: Starting point of program. Calls Client.java for receipt generation and creation. 
+   Handles all delegated exceptions
+ 
+2. Client.java: Instantiates all necessary classes, creates product objects using product factory.
+ 
+3. CategoryLookup.java: This is a convenience class which maintains a hashmap for knows keywords and their product 
+   types. If user prefers a specific keyword/keywords to be treated as a part of a custom category, that keyword/keywords
+   should be added to the hashmap using this class' API. This class is designed to be a singleton for unified access.
+ 
+4. FileParser.java: Contains the algorithm to parse the input file. For a different parsing algorithm for another input
+   file format, this file should be replaced, with the one with same interface. Few things are hard-coded here for 
+   simplicity assuming that parsing algorithm is not the crux of the design.
+    
+5. Receipt.java: Does the final calculations and has fields that hold the transaction information.Has a method that can 
+   be used by any printer to print the receipt.
+   
+ --package ~products:
+ 1. Product.java: Abstract class for concrete product objects. Also contains algorithm to deal with imported products
+ 2. Book,Food,Medical,Other: Concrete implementations of Product class. Each object has a knowledge of it's own Sales Tax percentage
+    A new type of object, if needed, should stick to the same interface.
+ 3. ProductFactory: A good-old factory method implementation. Factory also incorporates a default object creation type. If it 
+    encounters an unknown product type, it shall return an object of type "Other"
+    
+ --package ~shoppingCart:
+ 1. ShoppingCart.java: Interface for a shopping cart
+ 2. CustomerCart.java: Concrete implementation of ShoppingCart interface.
+ 
+ --package ~test
+     Contains JUnit test files to test important aspects of program.   
+ 

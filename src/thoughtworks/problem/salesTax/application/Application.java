@@ -10,6 +10,8 @@ public class Application {
 	public static void main(String[] args) {
 		Client client = null;
 		Receipt receipt = null;
+		String customerName = "CustomerA";
+		String cashierName = "CashierA";
 		client = new Client("Inputs/input1.txt");
 		// client = new Client("Inputs/input2.txt");
 		// client = new Client("Inputs/input3.txt");
@@ -18,7 +20,7 @@ public class Application {
 
 		if (client != null) {
 			try {
-				receipt = client.performTransaction();
+				receipt = client.performTransaction(customerName, cashierName);
 				new Printer(receipt);
 			} catch (InvalidInputException invalidInputException) {
 				System.out.println("Please check your input file for correct format");

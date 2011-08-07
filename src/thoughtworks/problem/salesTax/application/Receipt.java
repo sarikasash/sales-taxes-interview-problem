@@ -15,14 +15,17 @@ public class Receipt {
 		private String name;
 		private BigDecimal totalCost;
 		private BigDecimal salesTax;
+		private boolean isImported;
 
-		public ReceiptItems(int quantity, String name, double salesTax, double totalCost) {
+		public ReceiptItems(int quantity, String name, double salesTax, double totalCost,
+				boolean isImported) {
 			this.quantity = quantity;
 			this.name = name;
 			this.salesTax = new BigDecimal(Double.toString(salesTax)).setScale(2,
 					BigDecimal.ROUND_HALF_EVEN);
 			this.totalCost = new BigDecimal(Double.toString(totalCost)).setScale(2,
 					BigDecimal.ROUND_HALF_EVEN);
+			this.isImported = isImported;
 		}
 
 	}
@@ -40,12 +43,14 @@ public class Receipt {
 		generateReceipt();
 	}
 
+	/** Get the grand total for this purchase */
 	public BigDecimal getTotal() {
 		BigDecimal total = new BigDecimal(Double.toString(grandOverallTotal)).setScale(
 				Constants.REQUIRED_DECIMAL_PLACES, BigDecimal.ROUND_HALF_EVEN);
 		return total;
 	}
 
+	/** Get the total sales tax for this purchase */
 	public BigDecimal getSalesTax() {
 
 		BigDecimal salesTaxes = new BigDecimal(Double.toString(grandSalesTaxesTotal)).setScale(
@@ -54,6 +59,7 @@ public class Receipt {
 
 	}
 
+	/** Helper method that does all the calculations */
 	private void generateReceipt() {
 		Iterator<Product> cartIterator = cart.iterator();
 
@@ -61,6 +67,7 @@ public class Receipt {
 			Product product = cartIterator.next();
 			int quantity = product.getQuantity();
 			String name = product.getName();
+			boolean isImported = product.isImported();
 			double totalBaseCostForThisProduct = product.getCost();
 			double totalSalesTaxForThisProduct = product.getSalesTax();
 			double totalCostForThisProduct = totalBaseCostForThisProduct
@@ -70,7 +77,7 @@ public class Receipt {
 			grandBaseCostTotal += totalBaseCostForThisProduct;
 
 			receiptItemsList.add(new ReceiptItems(quantity, name, totalSalesTaxForThisProduct,
-					totalCostForThisProduct));
+					totalCostForThisProduct, isImported));
 		}
 
 		grandOverallTotal = grandBaseCostTotal + grandSalesTaxesTotal;
@@ -80,10 +87,12 @@ public class Receipt {
 	 * Method used by any printer to print the receipt
 	 * */
 	public void print() {
-		Iterator<ReceiptItems> iterator = receiptItemsList.iterator();
-		while (iterator.hasNext()) {
-			ReceiptItems item = iterator.next();
-			System.out.println(item.quantity + " " + item.name + " :" + item.totalCost);
+		for (ReceiptItems item : receiptItemsList) {
+			System.out.print(item.quantity);
+			if (item.isImported)
+				System.out.print(" Imported ");
+			System.out.println(item.name + " : " + item.totalCost);
+
 		}
 
 		System.out.println("\nSales Taxes:\t"

@@ -25,9 +25,11 @@ public class FileParser {
 		int quantity = 0;
 		double cost = 0;
 		while ((currentLine = bufferedReader.readLine()) != null) {
+			// remove trailing spaces
 			currentLine = currentLine.replaceAll("\\s+$", "");
 			String[] array = currentLine.split(" ");
 
+			// Assuming the line should start and end with a number
 			if (isNumber(array[0]) && isNumber(array[array.length - 1])) {
 				quantity = new Integer(array[0]).intValue();
 				cost = new Double(array[array.length - 1]).doubleValue();
@@ -37,6 +39,7 @@ public class FileParser {
 				throw new InvalidInputException();
 			}
 
+			// create an array of keywords from the product description
 			String[] product = Arrays.copyOfRange(array, 1, array.length - 2);
 			String productDescription = "";
 			for (int index = 0; index < product.length; index++) {
@@ -51,16 +54,28 @@ public class FileParser {
 
 	}
 
-	private boolean isNumber(String string) {
+	/**
+	 * Helper method to validate data in file
+	 * 
+	 * @param fileInputString
+	 *            string from file that needs validation
+	 * */
+	private boolean isNumber(String fileInputString) {
 		boolean isNumber = true;
 		try {
-			Double.parseDouble(string);
+			isNumber = (Double.parseDouble(fileInputString)) > 0;
 		} catch (NumberFormatException e) {
 			isNumber = false;
 		}
 		return isNumber;
 	}
 
+	/**
+	 * Method to populate data from file into an array of InputData
+	 * 
+	 * @return inputDataArray Array of type InputData that contains data
+	 *         processed from file
+	 * */
 	public ArrayList<InputData> getInputData() {
 		return inputDataArray;
 

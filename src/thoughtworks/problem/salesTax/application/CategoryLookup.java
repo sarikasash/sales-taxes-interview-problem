@@ -28,15 +28,38 @@ public class CategoryLookup {
 
 	}
 
+	/**
+	 * Add new product and it's category to current database
+	 * 
+	 * @param item
+	 *            Item: keyword
+	 * @param category
+	 *            : Category keyword
+	 * */
 	public void addProduct(String item, String category) {
 		itemCategoriesMap.put(item, category);
 	}
 
+	/**
+	 * Remove product from the table, so that next time it is look up, it should
+	 * default to "Other" category
+	 * 
+	 * @param productName
+	 *            : Product to be removed from lookup table
+	 * */
 	public void removeProduct(String productName) {
 		if (itemCategoriesMap.containsKey(productName))
 			itemCategoriesMap.remove(productName);
 	}
 
+	/**
+	 * Get the category of product with given keyword(s)
+	 * 
+	 * @param productDescription
+	 *            keyword(s) with description of product
+	 * @return category of the product if found in the lookup table, otherwise
+	 *         the default value
+	 * */
 	public String getCategoryFor(String productDescription) {
 		String[] productKeyWords = productDescription.split(" ");
 		String category = Constants.OTHER;

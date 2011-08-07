@@ -18,7 +18,7 @@ public class InputTests {
 	@Test
 	public void testInput1() throws InvalidInputException, NumberFormatException, IOException {
 		Client newClient = new Client("Inputs/input1.txt");
-		Receipt receipt = newClient.performTransaction();
+		Receipt receipt = newClient.performTransaction("CustomerA", "CashierA");
 		BigDecimal total = receipt.getTotal();
 		BigDecimal myTotal = new BigDecimal("29.83");
 		assertTrue(total.equals(myTotal));
@@ -27,7 +27,7 @@ public class InputTests {
 	@Test
 	public void testInput2() throws InvalidInputException, NumberFormatException, IOException {
 		Client newClient = new Client("Inputs/input2.txt");
-		Receipt receipt = newClient.performTransaction();
+		Receipt receipt = newClient.performTransaction("CustomerA", "CashierA");
 		BigDecimal total = receipt.getTotal();
 		BigDecimal myTotal = new BigDecimal("65.15");
 		assertTrue(total.equals(myTotal));
@@ -36,7 +36,7 @@ public class InputTests {
 	@Test
 	public void testInput3() throws InvalidInputException, NumberFormatException, IOException {
 		Client newClient = new Client("Inputs/input3.txt");
-		Receipt receipt = newClient.performTransaction();
+		Receipt receipt = newClient.performTransaction("CustomerA", "CashierA");
 		BigDecimal total = receipt.getTotal();
 		BigDecimal myTotal = new BigDecimal("74.68");
 		assertTrue(total.equals(myTotal));
@@ -46,7 +46,7 @@ public class InputTests {
 	public void testInvalidInputData() throws InvalidInputException {
 		Client newClient = new Client("Inputs/invalid_input.txt");
 		try {
-			newClient.performTransaction();
+			newClient.performTransaction("CustomerA", "CashierA");
 
 		} catch (Exception invalidInputException) {
 			assertEquals(invalidInputException.getMessage(), "Invalid file format");
@@ -59,7 +59,7 @@ public class InputTests {
 		String invalidFilePath = "Inputs/non_existant_file.txt";
 		Client newClient = new Client(invalidFilePath);
 		try {
-			newClient.performTransaction();
+			newClient.performTransaction("CustomerA", "CashierA");
 		} catch (Exception notFoundException) {
 			assertEquals(notFoundException.getMessage(), invalidFilePath + " "
 					+ "(No such file or directory)");

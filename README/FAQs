@@ -1,0 +1,23 @@
+--Project: SalesTaxModel--
+--Author: Swapnil Devikar--
+--Email: swapnil.devikar@gmail.com--
+-- Date: 08/06/2011 --
+
+1. How to run:
+The package thoughtworks.problem.salesTax.application contains Application.java file, which is a starting point of the application.
+Program should run for the default input file "Input/input1.txt" for the first time. Input can be changed by specifying a different file path 
+in Application.java or by un-commenting other default file paths.
+
+2. How to change default values of sales tax, import duty etc.?
+All these constants are defined in Constants.java in thoughtworks.problem.salesTax.constants package. Edit this file for default values, as well 
+as rounding up rules, resolution etc.
+
+3. Why is the output not printed out in the same format as the input file?
+The application is programmed to eliminate certain keywords from output in the interest of simplicity
+
+4. Where are the test cases?
+All test cases, written in order to test the most important aspects of program are present in  thoughtworks.problem.salesTax.test package.
+
+5. What should I do, if I get an incomplete package or if the files are corrupted?
+In such an unlikely scenario, you should sync your Mercurial repository with:
+https://swapnil.devikar@code.google.com/p/sales-taxes-interview-problem/ 

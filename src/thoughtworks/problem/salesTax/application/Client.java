@@ -27,14 +27,14 @@ public class Client {
 		this.inputFilePath = inputFilePath;
 	}
 
-	public Receipt performTransaction() throws InvalidInputException, NumberFormatException,
-			IOException {
+	public Receipt performTransaction(String customerName, String ClientName)
+			throws InvalidInputException, NumberFormatException, IOException {
 		// read and prepare input data
 		lookup = CategoryLookup.getInstance();
 
 		inputData = new FileParser(inputFilePath).getInputData();
 		productFactory = ProductFactory.getInstance();
-		shoppingCart = new CustomerCart("Customer A", "Cashier B", new Date().toString());
+		shoppingCart = new CustomerCart(customerName, customerName, new Date().toString());
 
 		for (InputData data : inputData) {
 			int quantity = data.getQuantity();
@@ -48,7 +48,11 @@ public class Client {
 			shoppingCart.addProduct(product);
 		}
 
-		receipt = new Receipt(shoppingCart);
+		try {
+			receipt = new Receipt(shoppingCart);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return receipt;
 	}
 

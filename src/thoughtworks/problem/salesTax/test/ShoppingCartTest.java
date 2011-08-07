@@ -22,7 +22,7 @@ public class ShoppingCartTest {
 	@Before
 	public void setUp() throws Exception {
 		client = new Client(inputFilePath);
-		receipt = client.performTransaction();
+		receipt = client.performTransaction("CustomerA", "CashierA");
 	}
 
 	@Test

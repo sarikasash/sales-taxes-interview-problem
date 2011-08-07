@@ -48,11 +48,7 @@ public class Client {
 			shoppingCart.addProduct(product);
 		}
 
-		try {
-			receipt = new Receipt(shoppingCart);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		receipt = new Receipt(shoppingCart);
 		return receipt;
 	}
 

@@ -21,7 +21,7 @@ public class Application {
 		if (client != null) {
 			try {
 				receipt = client.performTransaction(customerName, cashierName);
-				new Printer(receipt);
+				new Printer(receipt).print();
 			} catch (InvalidInputException invalidInputException) {
 				System.out.println("Please check your input file for correct format");
 			} catch (FileNotFoundException fileNotFoundException) {

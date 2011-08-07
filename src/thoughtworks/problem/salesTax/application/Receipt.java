@@ -2,6 +2,7 @@ package thoughtworks.problem.salesTax.application;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import thoughtworks.problem.salesTax.constants.Constants;
@@ -84,9 +85,13 @@ public class Receipt {
 	}
 
 	/**
-	 * Method used by any printer to print the receipt
+	 * Method used by any printer to print the receipt Can add log facility. Not
+	 * implemented for simplicity
 	 * */
 	public void print() {
+		String todaysDate = new Date().toString();
+
+		System.out.println("----------------------------Receipt-----------------------------");
 		for (ReceiptItems item : receiptItemsList) {
 			System.out.print(item.quantity);
 			if (item.isImported)
@@ -101,6 +106,9 @@ public class Receipt {
 		System.out.println("Total:\t"
 				+ new BigDecimal(Double.toString(grandOverallTotal)).setScale(2,
 						BigDecimal.ROUND_HALF_EVEN));
+		System.out.println("\nPrinted:" + todaysDate);
+		System.out.println("--------------------------Thank You-----------------------------");
+
 		cart.empty();
 	}
 }

@@ -1,0 +1,10 @@
+--Project: SalesTaxModel--
+--Author: Swapnil Devikar--
+--Email: swapnil.devikar@gmail.com--
+-- Date: 08/06/2011 --
+
+How to run:
+The zip file contains an exported eclipse project. The quickest way to run the code is to unzip the file and
+import the unzipped folder as a project in eclipse. Since eclipse is the standard java development IDE, an assumption is
+made that eclipse is available. If not, the same can be downloaded from http://eclipse.org/.
+Test cases can be independently run from the respective package but will require eclipse to be capable of running JUnit.

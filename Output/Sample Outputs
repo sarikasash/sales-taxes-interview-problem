@@ -1,0 +1,41 @@
+Output1:
+----------------------------Receipt-----------------------------
+1 book : 12.49
+1 music cd : 16.49
+1 chocolate bar : 0.85
+
+Sales Taxes:	1.50
+Total:	29.83
+
+Printed:Sat Aug 06 21:22:56 PDT 2011
+--------------------------Thank You-----------------------------
+
+Output2:
+----------------------------Receipt-----------------------------
+1 Imported   box of chocolates : 10.50
+1 Imported   bottle of perfume : 54.65
+
+Sales Taxes:	7.65
+Total:	65.15
+
+Printed:Sat Aug 06 21:23:33 PDT 2011
+--------------------------Thank You-----------------------------
+
+Output3:
+----------------------------Receipt-----------------------------
+1 Imported   bottle of perfume : 32.19
+1 bottle of perfume : 20.89
+1 packet of headache pills : 9.75
+1 Imported  box of  chocolates : 11.85
+
+Sales Taxes:	6.70
+Total:	74.68
+
+Printed:Sat Aug 06 21:23:51 PDT 2011
+--------------------------Thank You-----------------------------
+
+Output4: Invalid Input File
+Please check your input file for correct format
+
+Output5: Invalid File
+The file you specified, doesn't exist!
